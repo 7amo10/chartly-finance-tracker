@@ -1,12 +1,10 @@
-# Chartly Finance Tracker
-
 <p align="center">
   <img src="https://img.icons8.com/fluency/96/combo-chart.png" alt="Chartly logo" width="96" />
 </p>
 
-<h3 align="center">Chartly Finance Tracker</h3>
+<h1 align="center">Chartly Finance Tracker</h1>
 
----
+## ![Dashboard](./images/Dashboard.png)
 
 ## Introduction
 
@@ -52,33 +50,38 @@ This project was created to provide a lightweight, secure, and intuitive finance
 
 ## Setup & Development
 
-1. Clone the repository
+```bash
+# 1. Clone the repository
 
-   git clone <repo-url>
-   cd fusion-angular-tailwind-starter
+git clone https://github.com/7amo10/chartly-finance-tracker.git
+cd fusion-angular-tailwind-starter
 
-2. Install dependencies
+# 2. Install dependencies
 
-   npm install
+npm install
 
-3. Run development server
+# 3. Run development server
 
-   npm start, ng serve
+npm start, ng serve
 
-4. Open the app
+# 4. Open the app
 
-   Visit http://localhost:4200 (or the URL provided by your dev environment)
+Visit http://localhost:4200 (or the URL provided by your dev environment)
 
-5. Build for production
+# 5. Build for production
 
-   npm run build
+npm run build
 
-Notes
+```
 
-- While developing, if the service worker caches assets or data, use the Admin > Clear Cache action to unregister service workers and clear caches.
-- The app includes example seed data via the Admin panel to populate accounts, categories, and sample transactions for demo purposes.
+> [!NOTE]
+>
+> - While developing, if the service worker caches assets or data, use the Admin > Clear Cache action to unregister service workers and clear caches.
+> - The app includes example seed data via the Admin panel to populate accounts, categories, and sample transactions for demo purposes.
 
 ## Project structure (quick)
+
+## ![Project Features](./images/Fetures.png)
 
 - src/app — application code (pages, components, services)
 - src/app/data — Dexie DB and models

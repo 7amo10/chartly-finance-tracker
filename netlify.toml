@@ -1,0 +1,7 @@
+[build]
+  command = "npm run build"
+  publish = "dist/fusion-angular-tailwind-starter/browser/browser"
+
+[[plugins]]
+  package = "@netlify/angular-runtime"
+

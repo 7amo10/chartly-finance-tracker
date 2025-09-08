@@ -1,0 +1,36 @@
+name: Deploy to Netlify
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build --if-present
+
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v1.2.1
+        with:
+          publish-dir: ./dist/fusion-angular-tailwind-starter/browser
+          production-deploy: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+# NOTE: Add two repository secrets in GitHub: NETLIFY_AUTH_TOKEN (Personal Access Token from Netlify)
+# and NETLIFY_SITE_ID (your Netlify Site ID). The workflow will deploy automatically on push to main.
+
