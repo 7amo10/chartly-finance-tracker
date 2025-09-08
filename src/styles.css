@@ -1,0 +1,207 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 210 20% 98%;
+  --foreground: 222 47% 11%;
+  --muted: 220 14% 96%;
+  --muted-foreground: 215 16% 47%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+  --border: 214 32% 91%;
+  --input: 214 32% 91%;
+  --ring: 221 83% 53%;
+  --brand: 221 83% 53%;
+  --brand-foreground: 210 40% 98%;
+  --secondary: 234 89% 74%;
+  --secondary-foreground: 222 47% 11%;
+  --success: 142 71% 45%;
+  --warning: 38 92% 50%;
+  --danger: 0 84% 60%;
+}
+
+.dark {
+  --background: 222 47% 11%;
+  --foreground: 214 32% 91%;
+  --muted: 222 20% 16%;
+  --muted-foreground: 215 20% 80%;
+  --card: 222 47% 12%;
+  --card-foreground: 214 32% 91%;
+  --border: 222 20% 18%;
+  --input: 222 20% 18%;
+  --ring: 217 91% 60%;
+  --brand: 217 91% 60%;
+  --brand-foreground: 222 47% 11%;
+  --secondary: 250 95% 76%;
+  --secondary-foreground: 222 47% 11%;
+  --success: 142 71% 45%;
+  --warning: 38 92% 50%;
+  --danger: 0 84% 60%;
+}
+
+@layer base {
+  html, body {
+    @apply bg-background text-foreground antialiased;
+  }
+
+  ::selection {
+    background: hsl(var(--brand));
+    color: hsl(var(--brand-foreground));
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium shadow-soft transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50 disabled:pointer-events-none;
+    cursor: pointer;
+  }
+  .btn-primary {
+    @apply btn bg-brand text-white hover:brightness-95;
+  }
+  .btn-outline {
+    @apply btn border border-border bg-transparent hover:bg-muted;
+  }
+  .card {
+    @apply rounded-xl bg-card text-foreground shadow-soft border border-border;
+  }
+  .input {
+    @apply w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus-within:ring-2 focus-within:ring-ring;
+  }
+  .badge {
+    @apply inline-flex items-center rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground;
+  }
+}
+
+/* Fancy sidebar styles */
+.fancy-sidenav {
+  background: linear-gradient(180deg, hsl(var(--card) / 0.84), hsl(var(--background) / 0.65));
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  backdrop-filter: blur(10px) saturate(120%);
+  border-right: 1px solid hsl(var(--border) / 0.6);
+  box-shadow: 0 8px 30px rgba(2,6,23,0.16);
+  transition: transform 420ms cubic-bezier(.2,.9,.3,1), opacity 240ms ease, box-shadow 240ms ease, width 320ms cubic-bezier(.2,.9,.3,1);
+  will-change: transform, opacity;
+  overflow: hidden;
+  position: relative;
+  z-index: 10 !important;
+}
+
+.mat-drawer:not(.mat-drawer-opened).fancy-sidenav,
+.fancy-sidenav.mat-drawer:not(.mat-drawer-opened) {
+  transform: translateX(-12px) scale(.985);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.fancy-sidenav nav a { display: block; transform: translateX(-8px) translateZ(0); opacity: 0; transition: transform 320ms cubic-bezier(.2,.9,.3,1), opacity 260ms ease; }
+.fancy-sidenav.mat-drawer-opened nav a { transform: translateX(0); opacity: 1; }
+.fancy-sidenav.mat-drawer-opened nav a:nth-child(1) { transition-delay: 80ms; }
+.fancy-sidenav.mat-drawer-opened nav a:nth-child(2) { transition-delay: 110ms; }
+.fancy-sidenav.mat-drawer-opened nav a:nth-child(3) { transition-delay: 140ms; }
+.fancy-sidenav.mat-drawer-opened nav a:nth-child(4) { transition-delay: 170ms; }
+.fancy-sidenav.mat-drawer-opened nav a:nth-child(5) { transition-delay: 200ms; }
+.fancy-sidenav.mat-drawer-opened nav a:nth-child(6) { transition-delay: 230ms; }
+.fancy-sidenav.mat-drawer-opened nav a:nth-child(7) { transition-delay: 260ms; }
+
+@media (min-width: 640px) {
+  .fancy-sidenav:hover { transform: translateX(0) scale(1.01); box-shadow: 0 12px 40px rgba(2,6,23,0.2); }
+  .fancy-sidenav::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00) 30%, rgba(0,0,0,0.02) 100%); mix-blend-mode: overlay; opacity: 0.8; transition: opacity 360ms ease; }
+  .fancy-sidenav:hover::before { opacity: 1; }
+}
+
+.fancy-sidenav nav a.active, .fancy-sidenav nav a[aria-current="page"] { position: relative; }
+.fancy-sidenav nav a.active::after, .fancy-sidenav nav a[aria-current="page"]::after { content: ''; position: absolute; left: 8px; top: 50%; transform: translateY(-50%); width: 4px; height: 40%; background: linear-gradient(180deg, hsl(var(--brand)), hsl(var(--secondary))); border-radius: 999px; }
+
+.fancy-sidenav .material-icons, .fancy-sidenav a { color: hsl(var(--card-foreground)); }
+
+/* Modal helpers */
+.app-modal { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 2147483647 !important; }
+.app-modal > .backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.45); backdrop-filter: blur(4px); z-index: 2147483630 !important; }
+.app-modal .modal-content { position: relative; z-index: 2147483647 !important; }
+
+/* Admin panel center-to-top animation styles */
+.admin-wrapper { position: relative; }
+.admin-container { position: fixed; inset: 0; display: flex; flex-direction: column; gap: 16px; align-items: center; justify-content: center; pointer-events: auto; padding: 2rem 1rem; z-index: 60; }
+.admin-container .card { width: min(820px, 96%); transition: transform 520ms cubic-bezier(.2,.9,.3,1), width 520ms cubic-bezier(.2,.9,.3,1), border-radius 520ms ease, box-shadow 520ms ease, opacity 520ms ease; transform-origin: center center; border-radius: 1rem; box-shadow: 0 20px 60px rgba(2,6,23,0.2); }
+.admin-container.expanded { position: static; }
+.admin-container.expanded .card { width: auto; max-width: none; transform: translateY(-14px) scale(1); border-radius: 0.5rem; box-shadow: none; }
+
+.admin-section { opacity: 0; transform: translateY(10px) scale(.995); transition: transform 420ms cubic-bezier(.2,.9,.3,1), opacity 360ms ease; }
+.admin-container.expanded .admin-section { opacity: 1; transform: none; }
+.admin-container.expanded .admin-section.section-top { transition-delay: 0ms; }
+.admin-container.expanded .admin-section.admin-credentials { transition-delay: 80ms; }
+.admin-container.expanded .admin-section.actions { transition-delay: 160ms; }
+.admin-container.expanded .admin-section .card { transition-delay: 200ms; }
+.admin-container:not(.expanded) ~ * { pointer-events: none; }
+
+@media (max-width: 640px) {
+  .admin-container { align-items: flex-start; padding-top: 4rem; }
+  .admin-container .card { width: min(96%, 420px); }
+}
+
+/* Seed modal specific styles (smaller, regular typography) */
+.seed-modal-content {
+  width: 420px;
+  max-width: calc(100% - 32px);
+  transform: translateY(-6px) scale(.99);
+  opacity: 0;
+  transition: transform 260ms cubic-bezier(.22,.9,.25,1), opacity 200ms ease;
+  padding: 1rem 1.25rem; /* slightly tighter */
+}
+.app-modal .seed-modal-content { transform: translateY(0) scale(1); opacity: 1; }
+
+/* Typography tweaks for a regular, more compact look */
+.seed-modal-content h3 { font-size: 1.125rem; margin-bottom: 0.25rem; }
+.seed-modal-content p, .seed-modal-content ul { font-size: 0.95rem; color: hsl(var(--muted-foreground)); }
+
+.seed-modal-content .btn-primary { background: linear-gradient(90deg, hsl(var(--brand)), hsl(var(--secondary))); color: white; }
+.seed-modal-content .btn-outline { background: transparent; border-color: hsl(var(--border)); }
+
+@keyframes seedPop { 0% { transform: translateY(-10px) scale(.985); opacity: 0 } 60% { transform: translateY(2px) scale(1.01); opacity: 1 } 100% { transform: translateY(0) scale(1); opacity: 1 } }
+.app-modal .seed-modal-content { animation: seedPop 360ms cubic-bezier(.22,.9,.25,1); }
+
+@media (prefers-reduced-motion: reduce) { .fancy-sidenav, .fancy-sidenav nav a, .admin-container .card, .admin-section { transition: none !important; animation: none !important; } }
+
+/* Mobile drawer */
+.mobile-drawer-backdrop {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 60; transition: opacity .18s ease;
+}
+.mobile-drawer {
+  position: fixed; top: 0; left: 0; bottom: 0; width: 280px; transform: translateX(-104%); background: hsl(var(--card)); z-index: 70; box-shadow: 0 8px 30px rgba(0,0,0,0.3); transition: transform .28s cubic-bezier(.2,.9,.2,1);
+}
+.mobile-drawer.open { transform: translateX(0%); }
+
+/* hamburger */
+.hamburger { width: 22px; height: 18px; display:inline-block; position:relative }
+.hamburger span { position:absolute; left:0; right:0; height:2px; background:currentColor; transition: transform .24s ease, opacity .18s ease; }
+.hamburger span:nth-child(1){ top:0 }
+.hamburger span:nth-child(2){ top:8px }
+.hamburger span:nth-child(3){ top:16px }
+.hamburger.open span:nth-child(1){ transform: translateY(8px) rotate(45deg) }
+.hamburger.open span:nth-child(2){ opacity:0 }
+.hamburger.open span:nth-child(3){ transform: translateY(-8px) rotate(-45deg) }
+
+/* account dropdown (mobile) */
+.account-menu-wrapper { position: fixed; top: 56px; right: 12px; z-index: 80; }
+.account-menu-card { width: 220px; background: hsl(var(--card)); border: 1px solid hsl(var(--border)); box-shadow: 0 10px 30px rgba(2,6,23,0.12); border-radius: 12px; overflow: hidden; transform-origin: top right; animation: accountPop .22s cubic-bezier(.2,.9,.3,1); }
+.account-menu-backdrop { position: fixed; inset: 0; z-index: 60; }
+.menu-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; width: 100%; background: transparent; border: none; text-align: left; font-size: 0.95rem; color: hsl(var(--card-foreground)); cursor: pointer; }
+.menu-item:hover { background: hsl(var(--muted) / 0.6); }
+@keyframes accountPop { from { transform: scale(.98) translateY(-6px); opacity: 0 } to { transform: none; opacity: 1 } }
+
+/* ensure buttons show pointer unless disabled */
+button:not(:disabled) { cursor: pointer; }
+
+/* fancy sidenav hover */
+.fancy-sidenav a { transition: transform .12s ease, background-color .12s ease; }
+.fancy-sidenav a:hover { transform: translateX(6px); }
+
+@media (max-width: 639px) {
+  .fancy-sidenav { display:none !important; }
+}
+
+/* Ensure sidebar navigation uses pointer cursor and is interactive when visible */
+.fancy-sidenav.open, .mobile-drawer { pointer-events: auto; }
+.fancy-sidenav nav a, .fancy-sidenav a, .mobile-drawer nav a, .mobile-drawer a { cursor: pointer; }
+.fancy-sidenav nav a, .mobile-drawer nav a { -webkit-tap-highlight-color: transparent; }
